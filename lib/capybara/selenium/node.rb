@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 # Selenium specific implementation of the Capybara::Driver::Node API
+
+require 'capybara/selenium/extensions/scroll'
+
+
 class Capybara::Selenium::Node < Capybara::Driver::Node
+  include Capybara::Selenium::Scroll
+
   def visible_text
     native.text
   end
