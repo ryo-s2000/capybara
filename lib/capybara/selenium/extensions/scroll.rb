@@ -5,30 +5,31 @@ module Capybara
     module Scroll
       def scroll_by(x, y)
         driver.execute_script <<~JS, self, x, y
-        var el = arguments[0];
-          if (el.scrollBy){
-            el.scrollBy(arguments[1], arguments[2]);
-          } else {
-            el.scrollTop = el.scrollTop + arguments[2];
-            el.scrollLeft = el.scrollLeft + arguments[1];
-          }
+          var el = arguments[0];
+            if (el.scrollBy){
+              el.scrollBy(arguments[1], arguments[2]);
+            } else {
+              el.scrollTop = el.scrollTop + arguments[2];
+              el.scrollLeft = el.scrollLeft + arguments[1];
+            }
         JS
       end
 
       def scroll_to(element, location = :top)
+        location, element = element, nil if element.is_a? Symbol
+
         if element.is_a? Capybara::Selenium::Node
           scroll_element_to_location(element, location)
-        elsif element.is_a? Symbol
-          location, element = element, nil
+        elsif location.is_a? Symbol
           scroll_to_location(location)
         else
-          x,y = element, location
-          scroll_to_coords(x,y)
+          x, y = element, location
+          scroll_to_coords(x, y)
         end
         self
       end
 
-      private
+    private
 
       def scroll_element_to_location(element, location)
         scroll_opts = case location
@@ -66,12 +67,12 @@ module Capybara
 
       def scroll_to_coords(x, y)
         driver.execute_script <<~JS, self, x, y
-         if (this.scrollTo){
-           arguments[0].scrollTo(arguments[1], arguments[2]);
-         } else {
-           arguments[0].scrollTop = arguments[2];
-           arguments[0].scrollLeft = arguments[1];
-         }
+          if (this.scrollTo){
+            arguments[0].scrollTo(arguments[1], arguments[2]);
+          } else {
+            arguments[0].scrollTop = arguments[2];
+            arguments[0].scrollLeft = arguments[1];
+          }
         JS
       end
     end

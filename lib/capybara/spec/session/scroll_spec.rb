@@ -24,7 +24,7 @@ Capybara::SpecHelper.spec '#scroll_to', requires: [:scroll] do
     @session.scroll_to(el, :center)
     el_center = el.evaluate_script('(function(rect){return (rect.top + rect.bottom)/2})(this.getBoundingClientRect())')
     viewport_bottom = el.evaluate_script('document.body.clientHeight')
-    expect(el_center).to be_within(1).of(viewport_bottom/2)
+    expect(el_center).to be_within(1).of(viewport_bottom / 2)
   end
 
   it 'can scroll the window to the vertical top' do
@@ -35,14 +35,14 @@ Capybara::SpecHelper.spec '#scroll_to', requires: [:scroll] do
 
   it 'can scroll the window to the vertical bottom' do
     @session.scroll_to :bottom
-    max_scrollY = @session.evaluate_script('document.body.scrollHeight - document.body.clientHeight')
-    expect(@session.evaluate_script('[window.scrollX, window.scrollY]')).to eq [0, max_scrollY]
+    max_scroll = @session.evaluate_script('document.body.scrollHeight - document.body.clientHeight')
+    expect(@session.evaluate_script('[window.scrollX, window.scrollY]')).to eq [0, max_scroll]
   end
 
   it 'can scroll the window to the vertical center' do
     @session.scroll_to :center
-    max_scrollY = @session.evaluate_script('document.documentElement.scrollHeight - document.body.clientHeight')
-    expect(@session.evaluate_script('[window.scrollX, window.scrollY]')).to eq [0, max_scrollY/2]
+    max_scroll = @session.evaluate_script('document.documentElement.scrollHeight - document.body.clientHeight')
+    expect(@session.evaluate_script('[window.scrollX, window.scrollY]')).to eq [0, max_scroll / 2]
   end
 
   it 'can scroll the window to specifc location' do
@@ -86,15 +86,15 @@ Capybara::SpecHelper.spec '#scroll_to', requires: [:scroll] do
   it 'can scroll the scrolling element to the bottom' do
     scrolling_element = @session.find(:css, '#scrollable')
     scrolling_element.scroll_to :bottom
-    max_scrollY = scrolling_element.evaluate_script('this.scrollHeight - this.clientHeight')
-    expect(scrolling_element.evaluate_script('[this.scrollLeft, this.scrollTop]')).to eq [0, max_scrollY]
+    max_scroll = scrolling_element.evaluate_script('this.scrollHeight - this.clientHeight')
+    expect(scrolling_element.evaluate_script('[this.scrollLeft, this.scrollTop]')).to eq [0, max_scroll]
   end
 
   it 'can scroll the scrolling element to the vertical center' do
     scrolling_element = @session.find(:css, '#scrollable')
     scrolling_element.scroll_to :center
-    max_scrollY = scrolling_element.evaluate_script('this.scrollHeight - this.clientHeight')
-    expect(scrolling_element.evaluate_script('[this.scrollLeft, this.scrollTop]')).to eq [0, max_scrollY/2]
+    max_scroll = scrolling_element.evaluate_script('this.scrollHeight - this.clientHeight')
+    expect(scrolling_element.evaluate_script('[this.scrollLeft, this.scrollTop]')).to eq [0, max_scroll / 2]
   end
 
   it 'can scroll the scrolling element to specifc location' do
@@ -102,7 +102,6 @@ Capybara::SpecHelper.spec '#scroll_to', requires: [:scroll] do
     scrolling_element.scroll_to 100, 100
     expect(scrolling_element.evaluate_script('[this.scrollLeft, this.scrollTop]')).to eq [100, 100]
   end
-
 
   context 'scroll_by' do
     it 'can scroll the window by a specifc amount' do
@@ -113,7 +112,7 @@ Capybara::SpecHelper.spec '#scroll_to', requires: [:scroll] do
     it 'can scroll the scroll the scrolling element by a specifc amount' do
       scrolling_element = @session.find(:css, '#scrollable')
       scrolling_element.scroll_to 100, 100
-      scrolling_element.scroll_by -50, 50
+      scrolling_element.scroll_by(-50, 50)
       expect(scrolling_element.evaluate_script('[this.scrollLeft, this.scrollTop]')).to eq [50, 150]
     end
   end

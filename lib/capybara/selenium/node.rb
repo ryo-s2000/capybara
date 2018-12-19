@@ -4,7 +4,6 @@
 
 require 'capybara/selenium/extensions/scroll'
 
-
 class Capybara::Selenium::Node < Capybara::Driver::Node
   include Capybara::Selenium::Scroll
 

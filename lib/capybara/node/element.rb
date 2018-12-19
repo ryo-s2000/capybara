@@ -391,6 +391,7 @@ module Capybara
         synchronize { base.scroll_by(x, y) }
         self
       end
+
       ##
       #
       # Execute the given JS in the context of the element not returning a result. This is useful for scripts that return
