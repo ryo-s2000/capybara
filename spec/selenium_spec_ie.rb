@@ -47,7 +47,12 @@ Capybara::SpecHelper.run_specs TestSessions::SeleniumIE, 'selenium', capybara_sk
     skip "Windows can't :alt double click due to being properties shortcut"
   when /via clicking the wrapping label if possible$/
     pending 'IEDriver has an issue with the click location of elements with multiple children if the first child is a text node and the page is scrolled'
+  when /#has_css? should support case insensitive :class and :id options$/
+    pending "IE doesn't support case insensitive CSS selectors"
+  when /#reset_session! removes ALL cookies$/
+    pending "IE driver doesn't provide a way to remove ALL cookies"
   end
+
 end
 
 RSpec.describe 'Capybara::Session with Internet Explorer', capybara_skip: skipped_tests do # rubocop:disable RSpec/MultipleDescribes
