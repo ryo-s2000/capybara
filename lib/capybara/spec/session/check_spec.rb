@@ -202,7 +202,7 @@ Capybara::SpecHelper.spec '#check' do
           expect(extract_results(@session)['cars']).to include('tesla')
         end
 
-        it 'should not wait the full time if label can be clicked' do
+        it 'should not wait the full time if label can be clicked', :ie_fails do
           expect(@session.find(:checkbox, 'form_cars_tesla', unchecked: true, visible: :hidden)).to be_truthy
           start_time = Time.now
           @session.check('form_cars_tesla', allow_label_click: true, wait: 10)

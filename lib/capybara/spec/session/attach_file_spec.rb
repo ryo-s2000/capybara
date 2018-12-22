@@ -60,7 +60,7 @@ Capybara::SpecHelper.spec '#attach_file' do
       expect(@session).to have_content('text/plain')
     end
 
-    it 'should send content type image/jpeg when uploading an image' do
+    it 'should send content type image/jpeg when uploading an image', :ie_fails do
       @session.attach_file 'Single Document', with_os_path_separators(@test_jpg_file_path)
       @session.click_button 'Upload Single'
       expect(@session).to have_content('image/jpeg')
@@ -109,7 +109,7 @@ Capybara::SpecHelper.spec '#attach_file' do
       expect(@session).to have_css('.file_change', count: 1)
     end
 
-    it 'should fire change once for each set of files uploaded', requires: [:js] do
+    it 'should fire change once for each set of files uploaded', :ie_fails, requires: [:js] do
       @session.visit('with_js')
       @session.attach_file('multiple-file', [@test_jpg_file_path].map { |f| with_os_path_separators(f) })
       @session.attach_file('multiple-file',

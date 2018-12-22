@@ -89,7 +89,7 @@ Capybara::SpecHelper.spec '#within_frame', requires: [:frames] do
     end
   end
 
-  it 'works if the frame is closed', requires: %i[frames js] do
+  it 'works if the frame is closed', :ie_fails, requires: %i[frames js] do
     @session.within_frame 'parentFrame' do
       @session.within_frame 'childFrame' do
         @session.click_link 'Close Window'
