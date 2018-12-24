@@ -12,33 +12,35 @@ Capybara.register_driver :selenium_ie do |app|
   Capybara::Selenium::Driver.new(
     app,
     browser: :ie,
-    desired_capabilities: :ie,
+    desired_capabilities: ::Selenium::WebDriver::Remote::Capabilities.ie,
     options: options
   )
 end
 
-# Capybara.register_driver :selenium_ie do |app|
-#   url = 'http://192.168.56.101:4444/wd/hub'
-#   browser_options = ::Selenium::WebDriver::IE::Options.new
-#   # browser_options.require_window_focus = true
-#
-#   Capybara::Selenium::Driver.new app,
-#                                  browser: :remote,
-#                                  desired_capabilities: :ie,
-#                                  options: browser_options,
-#                                  url: url
-# end
+if ENV['REMOTE']
+  Capybara.register_driver :selenium_ie do |app|
+    url = 'http://192.168.56.101:4444/wd/hub'
+    browser_options = ::Selenium::WebDriver::IE::Options.new
+    # browser_options.require_window_focus = true
 
-# Capybara.server_host = '10.24.4.135'
+    Capybara::Selenium::Driver.new app,
+                                   browser: :remote,
+                                   desired_capabilities: :ie,
+                                   options: browser_options,
+                                   url: url
+  end
+
+  Capybara.server_host = '10.24.4.135'
+end
 
 module TestSessions
   SeleniumIE = Capybara::Session.new(:selenium_ie, TestApp)
 end
 
-# TestSessions::SeleniumIE.driver.browser.file_detector = lambda do |args|
-#   str = args.first.to_s
-#   str if File.exist?(str)
-# end
+TestSessions::SeleniumIE.driver.browser.file_detector = lambda do |args|
+  str = args.first.to_s
+  str if File.exist?(str)
+end if ENV['REMOTE']
 
 TestSessions::SeleniumIE.current_window.resize_to(800, 500)
 
