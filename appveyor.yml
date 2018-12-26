@@ -34,7 +34,8 @@ install:
 build: off
 
 before_test:
-  - ps: Invoke-WebRequest 'https://github.com/SeleniumHQ/selenium/blob/master/cpp/prebuilt/x64/Release/IEDriverServer.exe' -OutFile 'C:\Tools\WebDriver\IEDriverServer.exe'
+  # - ps: Invoke-WebRequest 'https://github.com/SeleniumHQ/selenium/blob/master/cpp/prebuilt/x64/Release/IEDriverServer.exe' -OutFile 'C:\Tools\WebDriver\IEDriverServer.exe'
+  - ps: Invoke-WebRequest 'https://github.com/SeleniumHQ/selenium/blob/master/cpp/prebuilt/Win32/Release/IEDriverServer.exe' -OutFile 'C:\Tools\WebDriver\IEDriverServer.exe'
   - ruby -v
   - gem -v
   - bundle -v
