@@ -5,6 +5,9 @@ require 'selenium-webdriver'
 require 'shared_selenium_session'
 require 'rspec/shared_spec_matchers'
 
+
+::Selenium::WebDriver::IE.driver_path = 'C:\Tools\WebDriver\IEDriverServer.exe' if ENV['CI']
+
 Capybara.register_driver :selenium_ie do |app|
   # ::Selenium::WebDriver.logger.level = "debug"
   options = ::Selenium::WebDriver::IE::Options.new
